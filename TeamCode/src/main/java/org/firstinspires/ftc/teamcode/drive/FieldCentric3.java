@@ -3,7 +3,9 @@ package org.firstinspires.ftc.teamcode.drive;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
@@ -39,7 +41,9 @@ public class FieldCentric3 extends LinearOpMode {
         Servo wristGrip = hardwareMap.get(Servo.class, "wristGrip");
         Servo launcher = hardwareMap.get(Servo.class, "launcher");
 
-
+        DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
+        ColorSensor lineFinder = hardwareMap.get(ColorSensor.class, "lineFinder");
+        
 
         DcMotor lift = hardwareMap.dcMotor.get("lift");
         DcMotor arm = hardwareMap.dcMotor.get("arm");
