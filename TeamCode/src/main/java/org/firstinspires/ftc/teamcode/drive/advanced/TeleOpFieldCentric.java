@@ -4,7 +4,10 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
@@ -31,11 +34,90 @@ public class TeleOpFieldCentric extends LinearOpMode {
         // See AutoTransferPose.java for further details
         drive.setPoseEstimate(PoseStorage.currentPose);
 
+        //setup our other hardware
+        DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
+        ColorSensor lineFinder = hardwareMap.get(ColorSensor.class, "lineFinder");
+
+
+        DcMotor lift = hardwareMap.dcMotor.get("lift");
+        DcMotor arm = hardwareMap.dcMotor.get("arm");
+
+        lift.setZeroPowerBehavior( DcMotor.ZeroPowerBehavior.BRAKE );
+        arm.setZeroPowerBehavior( DcMotor.ZeroPowerBehavior.BRAKE );
+
+        double speedMultiplier = .7;
+
+        Servo rightGrip = hardwareMap.get(Servo.class, "rightGrip");
+        Servo leftGrip = hardwareMap.get(Servo.class, "leftGrip");
+        Servo wristGrip = hardwareMap.get(Servo.class, "wristGrip");
+        Servo launcher = hardwareMap.get(Servo.class, "launcher");
+
+        //initialize the launch lock
+        launcher.setPosition(.2);
+
+        boolean endgame = false ;
+
+
+
         waitForStart();
 
         if (isStopRequested()) return;
 
         while (opModeIsActive() && !isStopRequested()) {
+   // start with our custom stuff
+            if (gamepad1.y && gamepad1.a) {  //launch drone
+                launcher.setPosition(0);
+            }
+
+            if (gamepad1.x) {  //declare endgame for arm power boost
+                endgame = !endgame;
+            }
+            telemetry.addData("Endgame?",endgame);
+            //test grippers
+            //         leftGrip.setPosition(gamepad2.left_trigger);
+            //        wristGrip.setPosition(.72);
+            //         telemetry.addData("leftposition", gamepad2.left_trigger);
+            //          telemetry.addData("wristgrip", gamepad2.right_trigger);
+
+
+            if (endgame) {
+                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger - .15) * .5);
+            } else {
+                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger) * .5);
+            }
+            lift.setPower((gamepad1.left_trigger-gamepad1.right_trigger)*.90 );
+
+
+            //commands to operate the grippers
+            if (gamepad2.left_bumper) { //operate left gripper
+                leftGrip.setPosition(.15);
+            } else {
+                leftGrip.setPosition(0);
+            }
+
+            if (gamepad2.right_bumper) { //operate right gripper
+                rightGrip.setPosition(.1);
+            } else {
+                rightGrip.setPosition(.3);
+            }
+
+            if (gamepad2.a) {  //this is the downon the ground position.  bigger is towards the ground
+                wristGrip.setPosition(.73);
+            }
+
+            if (gamepad2.y) {
+                wristGrip.setPosition(.36);
+            }
+
+            if (gamepad2.x) {
+                wristGrip.setPosition(.64);
+            }
+
+
+
+
+            // here's the drive part of the code
+
             // Read pose
             Pose2d poseEstimate = drive.getPoseEstimate();
 
