@@ -7,8 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 /**
@@ -23,8 +26,9 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 public class TigerTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-
-
+// Our Variables
+        double armSpeedMultiplier = 0.5;
+        double liftSpeedMultiplier = 0.9;
 
 
 
@@ -42,7 +46,7 @@ public class TigerTeleOp extends LinearOpMode {
 
         //setup our other hardware
         DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
-        ColorSensor lineFinder = hardwareMap.get(ColorSensor.class, "lineFinder");
+        NormalizedColorSensor lineFinder = hardwareMap.get(NormalizedColorSensor.class, "lineFinder");
 
 
         DcMotor lift = hardwareMap.dcMotor.get("lift");
@@ -87,11 +91,11 @@ public class TigerTeleOp extends LinearOpMode {
 
 
             if (endgame) {
-                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger - .15) * .5);
+                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger - .15) * armSpeedMultiplier);
             } else {
-                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger) * .5);
+                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger) * armSpeedMultiplier);
             }
-            lift.setPower((gamepad1.left_trigger-gamepad1.right_trigger)*.90 );
+            lift.setPower((gamepad1.left_trigger-gamepad1.right_trigger)*liftSpeedMultiplier );
 
 
             //commands to operate the grippers
@@ -119,6 +123,16 @@ public class TigerTeleOp extends LinearOpMode {
                 wristGrip.setPosition(.64);
             }
 
+
+// color sensor stuff
+            NormalizedRGBA colors = lineFinder.getNormalizedColors();
+            telemetry.addData("Color Red", colors.red);
+            telemetry.addData("Color Blue", colors.blue);
+//currently all it does is report the red and blue values from the color sensor for testing
+
+            //Range finder stuff
+            telemetry.addData("GripDistance", gripDistance.getDistance(DistanceUnit.MM));
+//currently all it does is report the distance from the gripper sensor in mm
 
 
 
