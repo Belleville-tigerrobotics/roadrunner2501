@@ -74,7 +74,7 @@ public class Airplanetest extends LinearOpMode {
 
             telemetry.addData("PRESS Y to LAUNCH",0);
             telemetry.addData("PRESS A to LOAD",0);
-
+            telemetry.update();
 
             if (endgame) {
                 arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger - .15) * .5);

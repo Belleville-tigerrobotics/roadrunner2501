@@ -109,7 +109,7 @@ public class FieldCentric3 extends LinearOpMode {
             }
 
             if (gamepad2.a) {  //this is the downon the ground position.  bigger is towards the ground
-                wristGrip.setPosition(.73);
+                wristGrip.setPosition(.74);
             }
 
             if (gamepad2.y) {

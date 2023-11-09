@@ -112,7 +112,7 @@ public class TigerTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.a) {  //this is the downon the ground position.  bigger is towards the ground
-                wristGrip.setPosition(.73);
+                wristGrip.setPosition(.75);
             }
 
             if (gamepad2.y) {
