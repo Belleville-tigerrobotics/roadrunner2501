@@ -22,11 +22,33 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  * <p>
  * See lines 42-57.
  */
+
+
+
+
+/* Notes
+    arm encoder upright:  4338
+    lift encoder -3253
+    arm when lifted:  2000
+
+
+ */
+
+
+
 @TeleOp(group = "advanced")
 public class TigerTeleOp extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
-// Our Variables
+
+        double telemetryLevel = 5;
+
+        int armTargetforLift = 4338;
+        int liftTargetforLift = -3253;
+        int armLifted = 2000;
+        int liftLifted = 0;
+
+        // Our Variables
         double armSpeedMultiplier = 0.5;
         double liftSpeedMultiplier = 0.9;
 
@@ -46,14 +68,21 @@ public class TigerTeleOp extends LinearOpMode {
 
         //setup our other hardware
         DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
-        NormalizedColorSensor lineFinder = hardwareMap.get(NormalizedColorSensor.class, "lineFinder");
-
+//        NormalizedColorSensor lineFinder = hardwareMap.get(NormalizedColorSensor.class, "lineFinder");
 
         DcMotor lift = hardwareMap.dcMotor.get("lift");
         DcMotor arm = hardwareMap.dcMotor.get("arm");
 
         lift.setZeroPowerBehavior( DcMotor.ZeroPowerBehavior.BRAKE );
         arm.setZeroPowerBehavior( DcMotor.ZeroPowerBehavior.BRAKE );
+
+        //set arm and lift to use encoders...assume starting position
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
 
         double speedMultiplier = .7;
 
@@ -75,6 +104,16 @@ public class TigerTeleOp extends LinearOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
    // start with our custom stuff
+
+  //emergency reset for arm and lift encoders
+            if (gamepad2.back) {
+                arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            }
+
             if (gamepad1.y && gamepad1.a) {  //launch drone
                 launcher.setPosition(0);
             }
@@ -120,14 +159,44 @@ public class TigerTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.x) {
-                wristGrip.setPosition(.64);
+                wristGrip.setPosition(.69);//..64
             }
 
+            //prep for hanging
+            if (gamepad2.dpad_left) {
+                wristGrip.setPosition(.5);
+                arm.setTargetPosition(armTargetforLift);
+                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                arm.setPower(1);
+                lift.setTargetPosition(liftTargetforLift);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(1);
+            }
+            //ready to hang
+            if (gamepad2.dpad_right) {
+                arm.setTargetPosition(armLifted);
+                arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                arm.setPower(1);
+                lift.setTargetPosition(liftLifted);
+                lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                lift.setPower(1);
+                endgame = true;
+
+            }
+
+            //reset motors if hang doesn't work right
+            if (gamepad2.dpad_up) {
+                endgame = false;
+                arm.setPower(0);
+                lift.setPower(0);
+                arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
 
 // color sensor stuff
-            NormalizedRGBA colors = lineFinder.getNormalizedColors();
-            telemetry.addData("Color Red", colors.red);
-            telemetry.addData("Color Blue", colors.blue);
+//            NormalizedRGBA colors = lineFinder.getNormalizedColors();
+//            telemetry.addData("Color Red", colors.red);
+//            telemetry.addData("Color Blue", colors.blue);
 //currently all it does is report the red and blue values from the color sensor for testing
 
             //Range finder stuff
@@ -161,10 +230,22 @@ public class TigerTeleOp extends LinearOpMode {
             // Update everything. Odometry. Etc.
             drive.update();
 
-            // Print pose to telemetry
-            telemetry.addData("x", poseEstimate.getX());
-            telemetry.addData("y", poseEstimate.getY());
-            telemetry.addData("heading", poseEstimate.getHeading());
+            if (telemetryLevel >2) {
+               // Print pose to telemetry
+                telemetry.addData("x", poseEstimate.getX());
+                telemetry.addData("y", poseEstimate.getY());
+                telemetry.addData("heading", poseEstimate.getHeading());
+            }
+
+            if (telemetryLevel >3) {
+                telemetry.addData("Arm Encoder", arm.getCurrentPosition());
+                telemetry.addData("Lift Encoder", lift.getCurrentPosition());
+            }
+
+            if (telemetryLevel >4) {
+            //    telemetry.addData("x", poseEstimate.getX());
+            //    telemetry.addData("y", poseEstimate.getY());
+            }
             telemetry.update();
         }
     }
