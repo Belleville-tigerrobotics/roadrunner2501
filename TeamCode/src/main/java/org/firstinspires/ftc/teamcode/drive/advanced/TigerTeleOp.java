@@ -35,7 +35,6 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
  */
 
 
-
 @TeleOp(group = "advanced")
 public class TigerTeleOp extends LinearOpMode {
     @Override
@@ -167,19 +166,19 @@ public class TigerTeleOp extends LinearOpMode {
                 wristGrip.setPosition(.5);
                 arm.setTargetPosition(armTargetforLift);
                 arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                arm.setPower(1);
+                arm.setPower(.9);
                 lift.setTargetPosition(liftTargetforLift);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift.setPower(1);
+                lift.setPower(.9);
             }
             //ready to hang
             if (gamepad2.dpad_right) {
                 arm.setTargetPosition(armLifted);
                 arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                arm.setPower(1);
+                arm.setPower(.9);
                 lift.setTargetPosition(liftLifted);
                 lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                lift.setPower(1);
+                lift.setPower(.9);
                 endgame = true;
 
             }
@@ -250,3 +249,4 @@ public class TigerTeleOp extends LinearOpMode {
         }
     }
 }
+
