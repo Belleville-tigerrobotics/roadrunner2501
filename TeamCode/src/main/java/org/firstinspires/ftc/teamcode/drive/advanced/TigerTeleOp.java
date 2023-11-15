@@ -247,6 +247,9 @@ public class TigerTeleOp extends LinearOpMode {
             }
             telemetry.update();
         }
+       }
+    public double powermap (double input) {
+        return Math.pow(10,input) / 10;
     }
 }
 
