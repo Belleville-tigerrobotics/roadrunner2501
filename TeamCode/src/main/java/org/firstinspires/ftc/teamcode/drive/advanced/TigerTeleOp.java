@@ -66,7 +66,7 @@ public class TigerTeleOp extends LinearOpMode {
         drive.setPoseEstimate(PoseStorage.currentPose);
 
         //setup our other hardware
-        DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
+//        DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
 //        NormalizedColorSensor lineFinder = hardwareMap.get(NormalizedColorSensor.class, "lineFinder");
 
         DcMotor lift = hardwareMap.dcMotor.get("lift");
@@ -150,7 +150,7 @@ public class TigerTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.a) {  //this is the downon the ground position.  bigger is towards the ground
-                wristGrip.setPosition(.75);
+                wristGrip.setPosition(.77);
             }
 
             if (gamepad2.y) {
@@ -199,7 +199,7 @@ public class TigerTeleOp extends LinearOpMode {
 //currently all it does is report the red and blue values from the color sensor for testing
 
             //Range finder stuff
-            telemetry.addData("GripDistance", gripDistance.getDistance(DistanceUnit.MM));
+     //       telemetry.addData("GripDistance", gripDistance.getDistance(DistanceUnit.MM));
 //currently all it does is report the distance from the gripper sensor in mm
 
 

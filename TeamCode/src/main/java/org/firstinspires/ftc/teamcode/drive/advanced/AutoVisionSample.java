@@ -49,9 +49,21 @@ public class AutoVisionSample extends LinearOpMode{
             telemetry.update();
         }
 
+
+
         telemetry.addData("Object", "Passed waitForStart");
+        telemetry.addData("press back to end", ".");
 
         telemetry.update();
+
+        while (!gamepad1.back) {
+//check the detected items here
+
+
+
+        }
+        telemetry.update();
+
 
     }
 
