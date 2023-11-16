@@ -236,6 +236,7 @@ public class TigerTeleOp extends LinearOpMode {
                 telemetry.addData("heading", poseEstimate.getHeading());
             }
 
+
             if (telemetryLevel >3) {
                 telemetry.addData("Arm Encoder", arm.getCurrentPosition());
                 telemetry.addData("Lift Encoder", lift.getCurrentPosition());

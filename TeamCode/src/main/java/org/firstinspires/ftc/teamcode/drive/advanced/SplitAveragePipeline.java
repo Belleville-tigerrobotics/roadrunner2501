@@ -35,6 +35,7 @@ public class SplitAveragePipeline extends OpenCvPipeline {
     @Override
     public Mat processFrame(Mat input) {
 
+
         //input = input.submat(new Rect(0));
 
         //Defining Zones

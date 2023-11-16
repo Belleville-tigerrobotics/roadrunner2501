@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.drive.advanced.TeamElementSubsystem;
 
 public class AutoVisionSample extends LinearOpMode{
 
+
     public int element_zone = 1;
 
     private TeamElementSubsystem teamElementDetection=null;

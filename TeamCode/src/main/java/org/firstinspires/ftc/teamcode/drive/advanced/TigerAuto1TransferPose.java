@@ -51,7 +51,6 @@ public class TigerAuto1TransferPose extends LinearOpMode {
 
 
 
-
                 waitForStart();
 
         if (isStopRequested()) return;
