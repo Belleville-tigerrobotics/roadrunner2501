@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.openftc.easyopencv.OpenCvCamera;
 
 /**
  * This opmode demonstrates how one would implement field centric control using
@@ -37,6 +38,20 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @TeleOp(group = "advanced")
 public class TigerTeleOp extends LinearOpMode {
+    static float unLinearilize(float inputNumber){
+        float outputNumber;
+        if(inputNumber>0){
+            outputNumber=(inputNumber)*(inputNumber);
+            return outputNumber;
+        } else if (inputNumber<0) {
+            outputNumber=(inputNumber)*(inputNumber)*-1;
+            return outputNumber;
+        }else{
+            outputNumber=0;
+            return outputNumber;
+        }
+
+    }
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -211,9 +226,14 @@ public class TigerTeleOp extends LinearOpMode {
 
             // Create a vector from the gamepad x/y inputs
             // Then, rotate that vector by the inverse of that heading
+            Float yval;
+            yval = unLinearilize(gamepad1.left_stick_y);
+            Float xval;
+            xval = unLinearilize(gamepad1.left_stick_x);
+
             Vector2d input = new Vector2d(
-                    -gamepad1.left_stick_y,
-                    -gamepad1.left_stick_x
+                    -yval,
+                    -xval
             ).rotated(-poseEstimate.getHeading());
 
             // Pass in the rotated input + right stick value for rotation
