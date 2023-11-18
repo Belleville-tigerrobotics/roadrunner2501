@@ -41,8 +41,8 @@ public class FieldCentric3 extends LinearOpMode {
         Servo wristGrip = hardwareMap.get(Servo.class, "wristGrip");
         Servo launcher = hardwareMap.get(Servo.class, "launcher");
 
-        DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
-        ColorSensor lineFinder = hardwareMap.get(ColorSensor.class, "lineFinder");
+ //       DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
+ //       ColorSensor lineFinder = hardwareMap.get(ColorSensor.class, "lineFinder");
         
 
         DcMotor lift = hardwareMap.dcMotor.get("lift");
@@ -109,7 +109,7 @@ public class FieldCentric3 extends LinearOpMode {
             }
 
             if (gamepad2.a) {  //this is the downon the ground position.  bigger is towards the ground
-                wristGrip.setPosition(.74);
+                wristGrip.setPosition(.77);
             }
 
             if (gamepad2.y) {
