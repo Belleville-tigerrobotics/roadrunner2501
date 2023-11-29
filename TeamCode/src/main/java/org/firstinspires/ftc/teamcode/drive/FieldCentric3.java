@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -17,7 +18,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 //test
 @TeleOp
+@Disabled
 public class FieldCentric3 extends LinearOpMode {
+
+
     @Override
     public void runOpMode() throws InterruptedException {
         // Declare our motors

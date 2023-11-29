@@ -109,6 +109,9 @@ public class TigerTeleOp extends LinearOpMode {
         //initialize the launch lock
         launcher.setPosition(.2);
 
+        //initialize the wrist
+        wristGrip.setPosition(.36);
+
         boolean endgame = false ;
 
 
@@ -151,7 +154,7 @@ public class TigerTeleOp extends LinearOpMode {
 
 
             if (endgame) {
-                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger + .15) * armSpeedMultiplier);
+                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger + .13) * armSpeedMultiplier);
             } else {
                 arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger) * armSpeedMultiplier);
             }
@@ -255,7 +258,7 @@ public class TigerTeleOp extends LinearOpMode {
                     new Pose2d(
                             input.getX(),
                             input.getY(),
-                            -gamepad1.right_stick_x
+                            - (unLinearilize(gamepad1.right_stick_x)*.7)
                     )
             );
 

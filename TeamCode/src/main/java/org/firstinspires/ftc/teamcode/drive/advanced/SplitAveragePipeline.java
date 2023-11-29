@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.advanced;
 //got this from here: https://github.com/FTC14133/FTC14133-2023-2024/blob/Detection-TeamElement/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/Subsystems/TeamElementDetection/TeamElementSubsystem.java
 
+        import org.firstinspires.ftc.robotcore.external.Telemetry;
         import org.opencv.core.Core;
         import org.opencv.core.Mat;
         import org.opencv.core.Rect;
@@ -25,6 +26,9 @@ public class SplitAveragePipeline extends OpenCvPipeline {
     //Telemetry telemetry;
 
     static int color_zone = 1;
+
+    static double distance1;
+    static double distance2;
 
     //public SplitAveragePipeline(/*Telemetry telemetry, */int iCAMERA_HEIGHT, int iCAMERA_WIDTH){
     //    //this.telemetry = telemetry;
@@ -52,26 +56,26 @@ public class SplitAveragePipeline extends OpenCvPipeline {
 //        Mat zone2 = input.submat(new Rect(550, 200, 120, 120));
   //      Mat zone3 = input.submat(new Rect(799, 0, 1, 1));
 
-        Mat zone1 = input.submat(new Rect(70, 70  , 40, 40));
-        Mat zone2 = input.submat(new Rect(490, 130, 40, 40));
-        Mat zone3 = input.submat(new Rect(1, 1, 1, 1));
+        Mat zone1 = input.submat(new Rect(70, 350  , 50, 50));
+        Mat zone2 = input.submat(new Rect(460, 300, 50, 50));
+ //       Mat zone3 = input.submat(new Rect(1, 1, 1, 1));
 
 
         //Averaging the colors in the zones
         Scalar avgColor1 = Core.mean(zone1);
         Scalar avgColor2 = Core.mean(zone2);
-        Scalar avgColor3 = Core.mean(zone3);
+ //       Scalar avgColor3 = Core.mean(zone3);
 
         //Putting averaged colors on zones (we can see on camera now)
         zone1.setTo(avgColor1);
         zone2.setTo(avgColor2);
-        zone3.setTo(avgColor3);
+ //       zone3.setTo(avgColor3);
 
-        double distance1 = color_distance(avgColor1, ELEMENT_COLOR);
-        double distance2 = color_distance(avgColor2, ELEMENT_COLOR);
-        double distance3 = color_distance(avgColor3, ELEMENT_COLOR);
+        distance1 = color_distance(avgColor1, ELEMENT_COLOR);
+        distance2 = color_distance(avgColor2, ELEMENT_COLOR);
+ //       double distance3 = color_distance(avgColor3, ELEMENT_COLOR);
 
-        double max_distance = Math.min(distance3, Math.min(distance1, distance2));
+        double max_distance = Math.min(distance1, distance2);
 
         if (max_distance == distance1){
             //telemetry.addData("Zone 1 Has Element", distance1);
@@ -80,18 +84,20 @@ public class SplitAveragePipeline extends OpenCvPipeline {
         }else if (max_distance == distance2){
             //telemetry.addData("Zone 2 Has Element", distance2);
             color_zone = 2;
-        }else{
+        }
+
+        if (max_distance >230){  //must actually be zone 3 because the distance is bigger than 220 (not found)
             //telemetry.addData("Zone 2 Has Element", distance3);
             color_zone = 3;
         }
 
-        /*telemetry.addData("\nZone 1 Color", avgColor1);
-        telemetry.addData("Zone 2 Color", avgColor2);
-        telemetry.addData("Zone 3 Color", avgColor3);
+   //     telemetry.addData("\nZone 1 Color", avgColor1);
+   //     telemetry.addData("Zone 2 Color", avgColor2);
+   //     telemetry.addData("Zone 3 Color", avgColor3);
 
-        telemetry.update();
+   //     telemetry.update();
 
-         */
+
 
         return input;
     }
@@ -111,12 +117,15 @@ public class SplitAveragePipeline extends OpenCvPipeline {
     public void setAlliancePipe(String alliance){
         if (alliance.equals("red")){
             ELEMENT_COLOR = Arrays.asList(255, 0, 0);
-        }else{
+        }else{ //blue
             ELEMENT_COLOR = Arrays.asList(0, 0, 255);
         }
     }
 
-    public int get_element_zone(){
+    public int get_element_zone(Telemetry telemetry){
+            telemetry.addData("\nZone 1 Color", distance1);
+            telemetry.addData("Zone 2 Color", distance2);
+
         return color_zone;
     }
 

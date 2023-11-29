@@ -48,7 +48,7 @@ public class TeamElementSubsystem {
     }
 
     public int elementDetection(Telemetry telemetry) {
-        zone = splitAveragePipeline.get_element_zone();
+        zone = splitAveragePipeline.get_element_zone(telemetry);
         telemetry.addData("Element Zone", zone);
         return zone;
     }

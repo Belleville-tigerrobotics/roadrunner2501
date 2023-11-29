@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode.drive.advanced;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.firstinspires.ftc.vision.VisionPortal;
+
 
 @Autonomous(name="TigerAutoVisionSample", group="Auto")
 
@@ -12,6 +14,7 @@ public class TigerAutoVisionSample extends LinearOpMode{
     public int element_zone = 1;
 
     private TeamElementSubsystem teamElementDetection=null;
+    private VisionPortal visionPortal;
 
     public void HardwareStart() {
         telemetry.addData("Object Creation", "Start");
@@ -42,6 +45,16 @@ public class TigerAutoVisionSample extends LinearOpMode{
             teamElementDetection.setAlliance(curAlliance);
             telemetry.addData("Select Alliance (Gamepad1 X = Blue, Gamepad1 B = Red)", "");
             telemetry.addData("Current Alliance Selected : ", curAlliance.toUpperCase());
+
+
+            // Save CPU resources; can resume streaming when needed.
+            if (gamepad1.dpad_down) {
+                visionPortal.stopStreaming();
+            } else if (gamepad1.dpad_up) {
+                visionPortal.resumeStreaming();
+            }
+
+
 
 
             telemetry.update();
