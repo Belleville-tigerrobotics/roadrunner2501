@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.advanced;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
@@ -76,8 +77,8 @@ public class ZTestAutoSpline extends LinearOpMode {
         // Refer to https://www.learnroadrunner.com/trajectories.html#coordinate-system for a map
         // of the field
         // This example sets the bot at x: 10, y: 15, and facing 90 degrees (turned counter-clockwise)
-//        Pose2d startPose = new Pose2d(-66, -42, Math.toRadians(0));
-        Pose2d startPose = new Pose2d(10, 15, Math.toRadians(0));
+        Pose2d startPose = new Pose2d(-66, -42, Math.toRadians(0));  // USE ACTUAL FIELD POSITION
+ //       Pose2d startPose = new Pose2d(10, 15, Math.toRadians(0));
 
         drive.setPoseEstimate(startPose);
         HardwareStart();
@@ -259,11 +260,13 @@ public class ZTestAutoSpline extends LinearOpMode {
             //lift wrist
             wristGrip.setPosition(.36);//..64
 
-//now we can drive to park
+//now we can drive to the other side of the stage
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(24 * 4)//forward 4 tiles from here should park us
+                    .back(24 * 2)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))  //this would be cool!
+                    .splineTo(new Vector2d(-12, 50), Math.toRadians(0)) //this should put us in the blue parking zone
+
                     .build();
             if (isStopRequested()) return;
             drive.followTrajectory(traj4);  //now push the item out of the way
