@@ -3,10 +3,17 @@ package org.firstinspires.ftc.teamcode.drive.advanced;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
+import com.acmerobotics.roadrunner.trajectory.constraints.TranslationalVelocityConstraint;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+
+import java.util.Arrays;
 
 /**
  * Example opmode demonstrating how to hand-off the pose from your autonomous opmode to your teleop
@@ -52,12 +59,26 @@ public class TigerAuto2TransferPose extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         // Declare your drive class
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+//now adjust some of the drive constants
+
+        Servo rightGrip = hardwareMap.get(Servo.class, "rightGrip");
+        Servo leftGrip = hardwareMap.get(Servo.class, "leftGrip");
+        Servo wristGrip = hardwareMap.get(Servo.class, "wristGrip");
+
+//set grips to holding position
+        leftGrip.setPosition(0);
+        rightGrip.setPosition(.3);
+
+//set wrist to upgright for start
+        wristGrip.setPosition(.36);//..64
+
 
         // Set the pose estimate to where you know the bot will start in autonomous
         // Refer to https://www.learnroadrunner.com/trajectories.html#coordinate-system for a map
         // of the field
         // This example sets the bot at x: 10, y: 15, and facing 90 degrees (turned counter-clockwise)
-        Pose2d startPose = new Pose2d(10, 15, Math.toRadians(90));
+//        Pose2d startPose = new Pose2d(-66, -42, Math.toRadians(0));
+        Pose2d startPose = new Pose2d(10, 15, Math.toRadians(0));
 
         drive.setPoseEstimate(startPose);
         HardwareStart();
@@ -85,60 +106,78 @@ public class TigerAuto2TransferPose extends LinearOpMode {
         detectedZone = teamElementDetection.elementDetection(telemetry);
         telemetry.update();
 
+        telemetry.addData("Current Alliance Selected : ", curAlliance.toUpperCase());
+        telemetry.addData("Found position ", detectedZone);
+        telemetry.update();
+        sleep(4000);
+
+        //setup speed limiter for roadrunner
+        TrajectoryVelocityConstraint slowConstraint = new MinVelocityConstraint(Arrays.asList(
+                new TranslationalVelocityConstraint(20),
+                new AngularVelocityConstraint( 1)
+        ));
+
+
         if (detectedZone==1) {
             //do roadrunner stuff here for zone 1
+            //put down the claw first
+            wristGrip.setPosition(.77);//..64
+            sleep(800);
             Trajectory traj = drive.trajectoryBuilder(startPose)
-                    .splineTo(new Vector2d(45, 45), 0)
+  //                  .setVelConstraint(slowConstraint)
+                    .forward(1.55)
+  //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             drive.followTrajectory(traj);
 
         } else if (detectedZone== 2 ) {
             // do roadrunner stuff here for zone 2
+            //put down the claw first
+            wristGrip.setPosition(.77);//..64
+            sleep(800);
             Trajectory traj = drive.trajectoryBuilder(startPose)
-                    .splineTo(new Vector2d(45, 45), 0)
+                    .forward(1.55)
+    //                .splineTo(new Vector2d(-54,-42), Math.toRadians(0))
+
                     .build();
             drive.followTrajectory(traj);
 
         } else {
             //do roadrunner stuff here for zone 3 (which will be the default if we don't detect anything
+            //put down the claw first
+            wristGrip.setPosition(.77);//..64
+            sleep(800);
             Trajectory traj = drive.trajectoryBuilder(startPose)
-                    .splineTo(new Vector2d(45, 45), 0)
+                    .forward(1.55)
+    //                .splineTo(new Vector2d(-54,-42), Math.toRadians(0))
+
                     .build();
             drive.followTrajectory(traj);
+
 
         }
 
 
         // once we're positioned, now let's drop the pixel--same for each location hopefully, so only need this part once
+        sleep(1000);
+        //now let go of left grip
+        leftGrip.setPosition(0.15);
+        sleep(1000);
+        //lift wrist
+        wristGrip.setPosition(.36);//..64
+
 
 
 
 
         if (isStopRequested()) return;
 
-        // Example spline path from SplineTest.java
-        // Make sure the start pose matches with the localizer's start pose
-//        Trajectory traj = drive.trajectoryBuilder(startPose)
-//                .splineTo(new Vector2d(45, 45), 0)
-//                .build();
-
-//        drive.followTrajectory(traj);
-
-        sleep(2000);
-//now do the stuff to drop the pixel
 
 
-
-        sleep (2000);
+        sleep (8000);
 //now do whatever we need to do to park?
 
-        //not sure what this does so commented out
-  /*      drive.followTrajectory(
-                drive.trajectoryBuilder(traj.end(), true)
-                        .splineTo(new Vector2d(15, 15), Math.toRadians(180))
-                        .build()
-        );
-*/
+
         // Transfer the current pose to PoseStorage so we can use it in TeleOp
         PoseStorage.currentPose = drive.getPoseEstimate();
     }

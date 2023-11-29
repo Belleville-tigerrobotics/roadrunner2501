@@ -78,7 +78,8 @@ public class TigerTeleOp extends LinearOpMode {
 
         // Retrieve our pose from the PoseStorage.currentPose static field
         // See AutoTransferPose.java for further details
-        drive.setPoseEstimate(PoseStorage.currentPose);
+  //      drive.setPoseEstimate(PoseStorage.currentPose);
+        drive.setPoseEstimate(new Pose2d(10, 15, Math.toRadians(0)));//was 90
 
         //setup our other hardware
 //        DistanceSensor gripDistance = hardwareMap.get(DistanceSensor.class, "gripDistance");
@@ -128,7 +129,13 @@ public class TigerTeleOp extends LinearOpMode {
 
             }
 
-            if (gamepad1.y && gamepad1.a) {  //launch drone
+            //pose reset if it looses it's direction
+            if (gamepad1.back) {
+                drive.setPoseEstimate(new Pose2d(10, 15, Math.toRadians(0)));//was 90
+
+            }
+
+                if (gamepad1.y && gamepad1.a) {  //launch drone
                 launcher.setPosition(0);
             }
 
@@ -144,7 +151,7 @@ public class TigerTeleOp extends LinearOpMode {
 
 
             if (endgame) {
-                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger - .15) * armSpeedMultiplier);
+                arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger + .15) * armSpeedMultiplier);
             } else {
                 arm.setPower((gamepad2.left_trigger - gamepad2.right_trigger) * armSpeedMultiplier);
             }
@@ -231,6 +238,12 @@ public class TigerTeleOp extends LinearOpMode {
             Float xval;
             xval = unLinearilize(gamepad1.left_stick_x);
 
+            telemetry.addData("yval",yval);
+            telemetry.addData("y",gamepad1.left_stick_y);
+            telemetry.addData("xval",xval);
+            telemetry.addData("x",gamepad1.left_stick_x);
+
+
             Vector2d input = new Vector2d(
                     -yval,
                     -xval
@@ -270,7 +283,8 @@ public class TigerTeleOp extends LinearOpMode {
         }
        }
     public double powermap (double input) {
-        return Math.pow(10,input) / 10;
+        return (Math.pow(10,input) / 10 ) *.8;
+//        return (Math.pow(input,15));
     }
 }
 

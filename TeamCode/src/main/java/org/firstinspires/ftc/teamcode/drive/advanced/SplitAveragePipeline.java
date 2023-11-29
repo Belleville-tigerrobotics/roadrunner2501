@@ -14,8 +14,8 @@ package org.firstinspires.ftc.teamcode.drive.advanced;
 
 public class SplitAveragePipeline extends OpenCvPipeline {
 
-    int CAMERA_WIDTH = 800/*800*/;
-    int CAMERA_HEIGHT = 448/*448*/;
+    int CAMERA_WIDTH = 640/*800*/;
+    int CAMERA_HEIGHT = 480/*448*/;
 
     List<Integer> ELEMENT_COLOR = Arrays.asList(255, 0, 0); //(red, green, blue)
 
@@ -44,9 +44,18 @@ public class SplitAveragePipeline extends OpenCvPipeline {
         //Mat zone2 = input.submat(new Rect(line1x, 0, line2x - line1x, CAMERA_HEIGHT));
         //Mat zone3 = input.submat(new Rect(line2x, 0, CAMERA_WIDTH - line2x, CAMERA_HEIGHT));
 
-        Mat zone1 = input.submat(new Rect(0, 180, 115, 115));
-        Mat zone2 = input.submat(new Rect(316, 180, 115, 115));
-        Mat zone3 = input.submat(new Rect(660, 180, 115, 115));
+ //       Mat zone1 = input.submat(new Rect(0, 180, 115, 115));
+ //       Mat zone2 = input.submat(new Rect(316, 180, 115, 115));
+ //       Mat zone3 = input.submat(new Rect(660, 180, 115, 115));
+
+//        Mat zone1 = input.submat(new Rect(40, 50  , 80, 100));
+//        Mat zone2 = input.submat(new Rect(550, 200, 120, 120));
+  //      Mat zone3 = input.submat(new Rect(799, 0, 1, 1));
+
+        Mat zone1 = input.submat(new Rect(70, 70  , 40, 40));
+        Mat zone2 = input.submat(new Rect(490, 130, 40, 40));
+        Mat zone3 = input.submat(new Rect(1, 1, 1, 1));
+
 
         //Averaging the colors in the zones
         Scalar avgColor1 = Core.mean(zone1);

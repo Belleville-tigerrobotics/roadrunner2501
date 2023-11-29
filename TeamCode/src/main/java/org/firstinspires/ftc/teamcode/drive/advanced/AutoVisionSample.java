@@ -61,7 +61,7 @@ public class AutoVisionSample extends LinearOpMode{
 
 //this testing loop to enable us to try different positions  we will remove this once we test the camera
         while (!gamepad1.back) {
-
+            if (isStopRequested()) return;
             //check the detected items here
             //loop here to continue to report the detected color element location
             detectedZone = teamElementDetection.elementDetection(telemetry);
