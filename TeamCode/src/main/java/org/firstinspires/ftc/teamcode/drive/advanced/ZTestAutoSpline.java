@@ -126,7 +126,7 @@ public class ZTestAutoSpline extends LinearOpMode {
             if (isStopRequested()) return;
             Trajectory traj = drive.trajectoryBuilder(startPose)
   //                  .setVelConstraint(slowConstraint)
-                    .forward(24)
+                    .forward(28)
 
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
@@ -199,19 +199,19 @@ public class ZTestAutoSpline extends LinearOpMode {
             // now let's get in position to be able to make it under the stage
             sleep(800);
             if (isStopRequested()) return;
-            Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
+    //        Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(4) //TODO tune this
+    //                .back(1) //TODO tune this
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
-                    .build();
+    //                .build();
             if (isStopRequested()) return;
-            drive.followTrajectory(traj3);  //now push the item out of the way
+  //          drive.followTrajectory(traj3);  //now push the item out of the way
             if (isStopRequested()) return;
             drive.turn(Math.toRadians(90)); //turn towards the backdrop
 //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .forward(24*4)//forward 4 tiles from here should park us
+                    .forward(24*4 -8)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;

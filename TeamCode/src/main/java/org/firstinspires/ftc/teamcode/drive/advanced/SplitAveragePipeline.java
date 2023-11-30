@@ -86,7 +86,7 @@ public class SplitAveragePipeline extends OpenCvPipeline {
             color_zone = 2;
         }
 
-        if (max_distance >230){  //must actually be zone 3 because the distance is bigger than 220 (not found)
+        if (max_distance >200){  //must actually be zone 3 because the distance is bigger than 220 (not found)
             //telemetry.addData("Zone 2 Has Element", distance3);
             color_zone = 3;
         }
