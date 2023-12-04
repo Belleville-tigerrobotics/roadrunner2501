@@ -7,6 +7,7 @@ import com.acmerobotics.roadrunner.trajectory.constraints.MinVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TrajectoryVelocityConstraint;
 import com.acmerobotics.roadrunner.trajectory.constraints.TranslationalVelocityConstraint;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -36,6 +37,7 @@ import java.util.Arrays;
  * to a file in the event of an app crash. This way, the pose can be retrieved and set even if
  * something disastrous occurs. Such a sample has not been included.
  */
+@Disabled
 @Autonomous(group = "advanced")
 public class TigerAutoBlueFront extends LinearOpMode {
  //   @Override
