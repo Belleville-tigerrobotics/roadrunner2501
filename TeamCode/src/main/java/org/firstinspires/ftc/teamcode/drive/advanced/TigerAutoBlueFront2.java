@@ -97,8 +97,6 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
             teamElementDetection.setAlliance(curAlliance);
             telemetry.addData("Select Alliance (Gamepad1 X = Blue, Gamepad1 B = Red)", "");
             telemetry.addData("Current Alliance Selected : ", curAlliance.toUpperCase());
-
-
             telemetry.update();
         }
 
@@ -110,7 +108,7 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
         telemetry.addData("Current Alliance Selected : ", curAlliance.toUpperCase());
         telemetry.addData("Found position ", detectedZone);
         telemetry.update();
-        sleep(500);
+        sleep(200);
 
         //setup speed limiter for roadrunner
         TrajectoryVelocityConstraint slowConstraint = new MinVelocityConstraint(Arrays.asList(
@@ -123,7 +121,7 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
             //do roadrunner stuff here for zone 1
             //put down the claw first
 //            wristGrip.setPosition(wristfloorposition);//..64
-            sleep(800);
+            sleep(200);
             Trajectory traj = drive.trajectoryBuilder(startPose)
                     //                  .setVelConstraint(slowConstraint)
                     .forward(30)
