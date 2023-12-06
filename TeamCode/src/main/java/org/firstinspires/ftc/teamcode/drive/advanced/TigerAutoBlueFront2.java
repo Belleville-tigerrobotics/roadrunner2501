@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.advanced;
 
+import static org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive.wristfloorposition;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
@@ -108,7 +110,7 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
         telemetry.addData("Current Alliance Selected : ", curAlliance.toUpperCase());
         telemetry.addData("Found position ", detectedZone);
         telemetry.update();
-        sleep(1000);
+        sleep(500);
 
         //setup speed limiter for roadrunner
         TrajectoryVelocityConstraint slowConstraint = new MinVelocityConstraint(Arrays.asList(
@@ -120,7 +122,7 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
         if (detectedZone==1) {
             //do roadrunner stuff here for zone 1
             //put down the claw first
-//            wristGrip.setPosition(.77);//..64
+//            wristGrip.setPosition(wristfloorposition);//..64
             sleep(800);
             Trajectory traj = drive.trajectoryBuilder(startPose)
                     //                  .setVelConstraint(slowConstraint)
@@ -138,7 +140,7 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
                     .build();
             if (isStopRequested()) return;
             drive.followTrajectory(traj2);  //back up a bit
-            wristGrip.setPosition(.77);      //now put the wrist down
+            wristGrip.setPosition(wristfloorposition);      //now put the wrist down
             sleep(800);
             leftGrip.setPosition(0.15);
             sleep(800);
@@ -194,7 +196,7 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
         } else if (detectedZone== 2 ) {
             // do roadrunner stuff here for zone 2
             //put down the claw first
-            wristGrip.setPosition(.77);//..64
+            wristGrip.setPosition(wristfloorposition);//..64
             sleep(800);
             Trajectory traj = drive.trajectoryBuilder(startPose)
                     .forward(27)
@@ -257,7 +259,7 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             drive.followTrajectory(traj2);  //back up a bit
-            wristGrip.setPosition(.77);      //now put the wrist down
+            wristGrip.setPosition(wristfloorposition);      //now put the wrist down
             sleep(800);
             if (isStopRequested()) return;
 

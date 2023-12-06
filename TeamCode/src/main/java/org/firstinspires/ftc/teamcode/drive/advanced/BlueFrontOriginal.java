@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.advanced;
 
+import static org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive.wristfloorposition;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.constraints.AngularVelocityConstraint;
@@ -122,7 +124,7 @@ public class BlueFrontOriginal extends LinearOpMode {
         if (detectedZone==1) {
             //do roadrunner stuff here for zone 1
             //put down the claw first
-//            wristGrip.setPosition(.77);//..64
+//            wristGrip.setPosition(wristfloorposition);//..64
             sleep(800);
             if (isStopRequested()) return;
             Trajectory traj = drive.trajectoryBuilder(startPose)
@@ -142,7 +144,7 @@ public class BlueFrontOriginal extends LinearOpMode {
                     .build();
             if (isStopRequested()) return;
             drive.followTrajectory(traj2);  //back up a bit
-            wristGrip.setPosition(.77);      //now put the wrist down
+            wristGrip.setPosition(wristfloorposition);      //now put the wrist down
             sleep(1000);
             if (isStopRequested()) return;
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
@@ -178,7 +180,7 @@ public class BlueFrontOriginal extends LinearOpMode {
         } else if (detectedZone== 2 ) {
             // do roadrunner stuff here for zone 2
             //put down the claw first
-            wristGrip.setPosition(.77);//..64
+            wristGrip.setPosition(wristfloorposition);//..64
             sleep(800);
             if (isStopRequested()) return;
             Trajectory traj = drive.trajectoryBuilder(startPose)
@@ -242,7 +244,7 @@ public class BlueFrontOriginal extends LinearOpMode {
                     .build();
             if (isStopRequested()) return;
             drive.followTrajectory(traj2);  //back up a bit
-            wristGrip.setPosition(.77);      //now put the wrist down
+            wristGrip.setPosition(wristfloorposition);      //now put the wrist down
             sleep(1000);
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)

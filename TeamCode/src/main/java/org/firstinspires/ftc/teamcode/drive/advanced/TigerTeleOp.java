@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.drive.advanced;
 
+import static org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive.wristfloorposition;
+
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -39,12 +41,13 @@ import org.openftc.easyopencv.OpenCvCamera;
 @TeleOp(group = "advanced")
 public class TigerTeleOp extends LinearOpMode {
     static float unLinearilize(float inputNumber){
+        float powerfactor = (float)0.8;
         float outputNumber;
         if(inputNumber>0){
-            outputNumber=(inputNumber)*(inputNumber);
+            outputNumber=(inputNumber)*(inputNumber)*(powerfactor);
             return outputNumber;
         } else if (inputNumber<0) {
-            outputNumber=(inputNumber)*(inputNumber)*-1;
+            outputNumber=(inputNumber)*(inputNumber)*-1*(powerfactor);
             return outputNumber;
         }else{
             outputNumber=0;
@@ -175,7 +178,7 @@ public class TigerTeleOp extends LinearOpMode {
             }
 
             if (gamepad2.a) {  //this is the downon the ground position.  bigger is towards the ground
-                wristGrip.setPosition(.77);
+                wristGrip.setPosition(wristfloorposition);
             }
 
             if (gamepad2.y) {

@@ -56,8 +56,8 @@ public class SplitAveragePipeline extends OpenCvPipeline {
 //        Mat zone2 = input.submat(new Rect(550, 200, 120, 120));
   //      Mat zone3 = input.submat(new Rect(799, 0, 1, 1));
 
-        Mat zone1 = input.submat(new Rect(70, 350  , 50, 50));
-        Mat zone2 = input.submat(new Rect(460, 300, 50, 50));
+        Mat zone1 = input.submat(new Rect(80, 300  , 80, 80));
+        Mat zone2 = input.submat(new Rect(490, 270, 95, 70));
  //       Mat zone3 = input.submat(new Rect(1, 1, 1, 1));
 
 
