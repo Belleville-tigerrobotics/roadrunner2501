@@ -153,7 +153,7 @@ public class TigerWristAdjust extends LinearOpMode {
                 wristfloorposition = wristfloorposition + .002;
                 wristGrip.setPosition(wristfloorposition);
 
-                sleep(10);
+                sleep(50);
             }
 
 

@@ -119,7 +119,7 @@ public class TigerAutoBlueBackPark extends LinearOpMode {
 */
 
         if (detectedZone==1) {
-            sleep(200);
+            sleep(100);
 
         //move forward
             Trajectory traj = drive.trajectoryBuilder(startPose)
@@ -136,7 +136,7 @@ public class TigerAutoBlueBackPark extends LinearOpMode {
          //backup so that we can place the pixel
             Trajectory traj2 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(7)
+                    .back(8)
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             drive.followTrajectory(traj2);  //back up a bit
@@ -149,46 +149,36 @@ public class TigerAutoBlueBackPark extends LinearOpMode {
             //lift wrist
             wristGrip.setPosition(.36);//..64
 
-            drive.turn(Math.toRadians(200));
+            drive.turn(Math.toRadians(-95));
 
-
-            sleep(400);
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeLeft(40)
-                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .strafeLeft(10)//make sure we dont' crash into the frame
                     .build();
-            if (isStopRequested()) return;
+
             drive.followTrajectory(traj3);  //now push the item out of the way
 
-            // once we're positioned, now let's drop the pixel--same for each location hopefully, so only need this part once
-            //         sleep(200);
-            //now let go of left grip
-            //           leftGrip.setPosition(0.15);
-            //           sleep(800);
-            //lift wrist
-            //           wristGrip.setPosition(.36);//..64
 
-//now we can drive to park
+            sleep(100);
+ //backup to the wall
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(24*4-12)//forward 4 tiles from here should park us
-                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .back(30)
                     .build();
-            if (isStopRequested()) return;
 
             drive.followTrajectory(traj4);  //now push the item out of the way
-            drive.turn(Math.toRadians(90));
+    //        drive.turn(Math.toRadians(90));
 
-            Trajectory traj5 = drive.trajectoryBuilder(drive.getPoseEstimate())
+
+            //now we can drive to park
+            Trajectory traj6 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(15)//forward 4 tiles from here should park us
+                    .strafeLeft(24*2+8)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
-            if (isStopRequested()) return;
 
-            drive.followTrajectory(traj5);  //now push the item out of the way
-
+            drive.followTrajectory(traj6);  //now push the item out of the way
+//
 
 
 //we could add some stuff here to place the other pixel now that we're in front of the board
@@ -203,7 +193,7 @@ public class TigerAutoBlueBackPark extends LinearOpMode {
             // do roadrunner stuff here for zone 2
             //put down the claw first
             wristGrip.setPosition(wristfloorposition);//..64
-            sleep(800);
+            sleep(200);
             Trajectory traj = drive.trajectoryBuilder(startPose)
                     .forward(27)
                     //                .splineTo(new Vector2d(-54,-42), Math.toRadians(0))
@@ -226,23 +216,23 @@ public class TigerAutoBlueBackPark extends LinearOpMode {
             sleep(800);
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                   //                  .setVelConstraint(slowConstraint)
-                    .forward(4) //TODO tune this
+                    .back(27) //TODO tune this
                     //                   //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
 
             drive.followTrajectory(traj3);  //now push the item out of the way
-            drive.turn(Math.toRadians(95)); //turn towards the backdrop
+ //           drive.turn(Math.toRadians(95)); //turn towards the backdrop
 //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .forward(24*4 -18)//forward 4 tiles from here should park us
+                    .strafeLeft(24*2 +5)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
 
             drive.followTrajectory(traj4);  //now push the item out of the way
-            drive.turn(Math.toRadians(-95));
+//            drive.turn(Math.toRadians(-95));
 //
 
 
@@ -274,41 +264,48 @@ public class TigerAutoBlueBackPark extends LinearOpMode {
             drive.followTrajectory(traj2);  //back up a bit
             wristGrip.setPosition(wristfloorposition);      //now put the wrist down
             sleep(800);
-            if (isStopRequested()) return;
 
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .forward(3)
+                    .forward(6)
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             drive.followTrajectory(traj3);  //now push the item out of the way
-            if (isStopRequested()) return;
 
             // once we're positioned, now let's drop the pixel--same for each location hopefully, so only need this part once
             sleep(200);
             //now let go of left grip
             leftGrip.setPosition(0.15);
-            sleep(800);
+            sleep(700);
             //lift wrist
             wristGrip.setPosition(.36);//..64
-            if (isStopRequested()) return;
+            sleep(400);
+//now turn back
+            drive.turn(Math.toRadians(99));
 
-//now we can drive to park
+//now backup to the wall again
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back((24 * 4)-22)//forward 4 tiles from here should park us
-                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))  //this would be cool!
+                    .back(30)//forward 4 tiles from here should park us
                     .build();
             drive.followTrajectory(traj4);  //now push the item out of the way
-            drive.turn(Math.toRadians(90));
+
+            //now we can drive to park
+            Trajectory traj5 = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeLeft(24*2)//forward 4 tiles from here should park us
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+
+            drive.followTrajectory(traj5);  //now push the item out of the way
+//
+
+
 
 //we could add some stuff here to place the other pixel now that we're in front of the board
             //
 
         }
-
-
-
 
 
         if (isStopRequested()) return;

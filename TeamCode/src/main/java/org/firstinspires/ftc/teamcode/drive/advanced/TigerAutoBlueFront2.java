@@ -216,16 +216,17 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
 
             // now let's get in position to be able to make it under the stage
             sleep(800);
+            drive.turn(Math.toRadians(95)); //turn towards the backdrop
+
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                   //                  .setVelConstraint(slowConstraint)
-                    .forward(4) //TODO tune this
+                    .strafeRight(2) //TODO tune this
                     //                   //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
 
             drive.followTrajectory(traj3);  //now push the item out of the way
-            drive.turn(Math.toRadians(95)); //turn towards the backdrop
-//now we can drive to park
+ //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
                     .forward(24*4 -18)//forward 4 tiles from here should park us
@@ -263,7 +264,7 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
 
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .forward(3)
+                    .forward(6)
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             drive.followTrajectory(traj3);  //now push the item out of the way
