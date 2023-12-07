@@ -39,7 +39,7 @@ import java.util.Arrays;
  * something disastrous occurs. Such a sample has not been included.
  */
 @Autonomous(group = "advanced")
-public class TigerAutoRedBackPark extends LinearOpMode {
+public class RedBackAutoPark extends LinearOpMode {
     //   @Override
 
     public int element_zone = 1;
@@ -153,7 +153,7 @@ public class TigerAutoRedBackPark extends LinearOpMode {
 
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeLeft(10)//make sure we dont' crash into the frame
+                    .strafeRight(10)//make sure we dont' crash into the frame
                     .build();
 
             drive.followTrajectory(traj3);  //now push the item out of the way

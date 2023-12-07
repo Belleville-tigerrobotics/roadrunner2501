@@ -39,7 +39,7 @@ import java.util.Arrays;
  * something disastrous occurs. Such a sample has not been included.
  */
 @Autonomous(group = "advanced")
-public class TigerAutoBlueFront2 extends LinearOpMode {
+public class BlueFrontAutoParkCenter extends LinearOpMode {
     //   @Override
 
     public int element_zone = 1;
@@ -118,6 +118,12 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
 
 
         if (detectedZone==1) {
+  /*--------------------------------------------------------------------------------------------
+                *****  BLUE ZONE 1 FRONT ********
+----------------------------------------------------------------------------------------------
+                */
+
+
             //do roadrunner stuff here for zone 1
             //put down the claw first
 //            wristGrip.setPosition(wristfloorposition);//..64
@@ -192,6 +198,11 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
 
 
         } else if (detectedZone== 2 ) {
+  /*--------------------------------------------------------------------------------------------
+                *****  BLUE ZONE 2 FRONT ********
+----------------------------------------------------------------------------------------------
+                */
+
             // do roadrunner stuff here for zone 2
             //put down the claw first
             wristGrip.setPosition(wristfloorposition);//..64
@@ -241,8 +252,11 @@ public class TigerAutoBlueFront2 extends LinearOpMode {
 
 
         } else {
-            //do roadrunner stuff here for zone 3 (which will be the default if we don't detect anything
-            //put down the claw first
+  /*--------------------------------------------------------------------------------------------
+                *****  BLUE ZONE 3 FRONT ********
+----------------------------------------------------------------------------------------------
+                */
+
             sleep(200);
             Trajectory traj = drive.trajectoryBuilder(startPose)
                     //                  .setVelConstraint(slowConstraint)

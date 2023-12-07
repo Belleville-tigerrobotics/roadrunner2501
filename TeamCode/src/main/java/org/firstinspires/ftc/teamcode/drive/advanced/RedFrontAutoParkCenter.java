@@ -39,7 +39,7 @@ import java.util.Arrays;
  * something disastrous occurs. Such a sample has not been included.
  */
 @Autonomous(group = "advanced")
-public class TigerAutoRedFront2 extends LinearOpMode {
+public class RedFrontAutoParkCenter extends LinearOpMode {
     //   @Override
 
     public int element_zone = 1;
@@ -118,6 +118,10 @@ public class TigerAutoRedFront2 extends LinearOpMode {
                 new AngularVelocityConstraint( 1)
         ));
 
+/*--------------------------------------------------------------------------------------------
+                *****  RED ZONE 3 FRONT ********
+----------------------------------------------------------------------------------------------
+                */
 
         if (detectedZone==3) {
             //do roadrunner stuff here for zone 1
@@ -193,7 +197,14 @@ public class TigerAutoRedFront2 extends LinearOpMode {
             //
 
 
+
         } else if (detectedZone== 2 ) {
+ /*--------------------------------------------------------------------------------------------
+                *****  RED ZONE 2 FRONT ********
+----------------------------------------------------------------------------------------------
+                */
+
+
             // do roadrunner stuff here for zone 2
             //put down the claw first
             wristGrip.setPosition(wristfloorposition);//..64  put this back!!!! dg
@@ -242,8 +253,11 @@ public class TigerAutoRedFront2 extends LinearOpMode {
 
 
         } else {
-            //do roadrunner stuff here for zone 3 (which will be the default if we don't detect anything
-            //put down the claw first
+/*--------------------------------------------------------------------------------------------
+                *****  RED ZONE 1 FRONT ********
+----------------------------------------------------------------------------------------------
+                */
+
             sleep(200);
             Trajectory traj = drive.trajectoryBuilder(startPose)
                     //                  .setVelConstraint(slowConstraint)
@@ -275,10 +289,11 @@ public class TigerAutoRedFront2 extends LinearOpMode {
             sleep(200);
             //now let go of left grip
             leftGrip.setPosition(0.15);
-            sleep(800);
+            sleep(500);
             //lift wrist
             wristGrip.setPosition(.36);//..64
             if (isStopRequested()) return;
+            sleep(500);
 
 //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
