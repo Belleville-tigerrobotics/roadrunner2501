@@ -124,7 +124,6 @@ public class TESTBlueFrontAutoParkCenter extends LinearOpMode {
 ----------------------------------------------------------------------------------------------
                 */
 
-
             //do roadrunner stuff here for zone 1
             //put down the claw first
 //            wristGrip.setPosition(wristfloorposition);//..64
@@ -175,17 +174,28 @@ public class TESTBlueFrontAutoParkCenter extends LinearOpMode {
 //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(24*4-12)//forward 4 tiles from here should park us
+                    .back(24*4-10)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
-            if (isStopRequested()) return;
-
             drive.followTrajectory(traj4);  //now push the item out of the way
+
+            drive.turn(Math.toRadians(-90));
+
+            //drop the other pixel
+            wristGrip.setPosition(.6);
+            sleep(500);
+            rightGrip.setPosition(.1);
+            sleep(400);
+            wristGrip.setPosition(.36);
+            sleep(500);
+
+
+
             drive.turn(Math.toRadians(90));
 
             Trajectory traj5 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(15)//forward 4 tiles from here should park us
+                    .back(8)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
@@ -232,24 +242,59 @@ public class TESTBlueFrontAutoParkCenter extends LinearOpMode {
 
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                   //                  .setVelConstraint(slowConstraint)
-                    .strafeRight(2) //TODO tune this
-                    //                   //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .strafeRight(2)
+                    //
                     .build();
             if (isStopRequested()) return;
+            drive.followTrajectory(traj3);
 
-            drive.followTrajectory(traj3);  //now push the item out of the way
- //now we can drive to park
+            Trajectory traj3a = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                   //                  .setVelConstraint(slowConstraint)
+                    .back(16)
+                    //
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj3a);
+
+            Trajectory traj3b = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                   //                  .setVelConstraint(slowConstraint)
+                    .strafeRight(40)
+                    //
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj3b);
+
+
+
+            //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .forward(24*4 -18)//forward 4 tiles from here should park us
+                    .forward(24*4)//forward 3 tiles from here should park us
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj4);  //now push the item out of the way
+
+            drive.turn(Math.toRadians(30));
+//drop the other pixel
+            wristGrip.setPosition(.6);
+            sleep(400);
+            rightGrip.setPosition(.1);
+            sleep(200);
+            wristGrip.setPosition(.36);
+            sleep(500);
+            drive.turn(Math.toRadians(-30));
+
+            drive.turn(Math.toRadians(-95));
+
+
+
+            Trajectory traj6 = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeLeft(20)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
-
-            drive.followTrajectory(traj4);  //now push the item out of the way
-            drive.turn(Math.toRadians(-95));
-//
-
+            drive.followTrajectory(traj6);  //now push the item out of the way
 
 
         } else {
@@ -295,28 +340,50 @@ public class TESTBlueFrontAutoParkCenter extends LinearOpMode {
             if (isStopRequested()) return;
 
 //now we can drive to park
+
+
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back((24 * 4)-22)//forward 4 tiles from here should park us
+                    .strafeLeft((38))//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))  //this would be cool!
                     .build();
             drive.followTrajectory(traj4);  //now push the item out of the way
-            drive.turn(Math.toRadians(90));
+  //          drive.turn(Math.toRadians(95));
+
+            Trajectory traj5 = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .back(24*3+14)//forward 4 tiles from here should park us
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj5);  //now push the item out of the way
+
+            drive.turn(Math.toRadians(190));
+
+//drop the other pixel
+            wristGrip.setPosition(.6);
+            sleep(500);
+            rightGrip.setPosition(.1);
+            sleep(400);
+            wristGrip.setPosition(.36);
+            sleep(500);
+
+            drive.turn(Math.toRadians(-95));
+
+
+            Trajectory traj5b = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeLeft(24*1)//forward 4 tiles from here should park us
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj5b);
 
 //we could add some stuff here to place the other pixel now that we're in front of the board
             //
 
         }
 
-
-
-
-
-        if (isStopRequested()) return;
-
-
-
-//        sleep (1000);
 
 
         // Transfer the current pose to PoseStorage so we can use it in TeleOp

@@ -137,7 +137,7 @@ public class RedBackAutoPark extends LinearOpMode {
          //backup so that we can place the pixel
             Trajectory traj2 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(8)
+                    .back(7)
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             drive.followTrajectory(traj2);  //back up a bit
@@ -170,18 +170,23 @@ public class RedBackAutoPark extends LinearOpMode {
             drive.followTrajectory(traj4);  //now push the item out of the way
     //        drive.turn(Math.toRadians(90));
 
+            sleep(9000);
 
             //now we can drive to park
             Trajectory traj6 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeRight(24*2+8)//forward 4 tiles from here should park us
+                    .strafeRight(24*2+14)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
 
             drive.followTrajectory(traj6);  //now push the item out of the way
 //
 
-
+            rightGrip.setPosition(.1);
+            wristGrip.setPosition(.5);
+            sleep(500);
+            wristGrip.setPosition(.36);
+            sleep(500);
 //we could add some stuff here to place the other pixel now that we're in front of the board
             //
 
@@ -221,13 +226,13 @@ public class RedBackAutoPark extends LinearOpMode {
                     //                   //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
-
+            sleep(9000);
             drive.followTrajectory(traj3);  //now push the item out of the way
  //           drive.turn(Math.toRadians(95)); //turn towards the backdrop
 //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeRight(24*2 +5)//forward 4 tiles from here should park us
+                    .strafeRight(24*2 +15)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
@@ -235,6 +240,12 @@ public class RedBackAutoPark extends LinearOpMode {
             drive.followTrajectory(traj4);  //now push the item out of the way
 //            drive.turn(Math.toRadians(-95));
 //
+
+            rightGrip.setPosition(.1);
+            wristGrip.setPosition(.5);
+            sleep(500);
+            wristGrip.setPosition(.36);
+            sleep(500);
 
 
 
@@ -290,16 +301,22 @@ public class RedBackAutoPark extends LinearOpMode {
                     .back(30)//forward 4 tiles from here should park us
                     .build();
             drive.followTrajectory(traj4);  //now push the item out of the way
-
+            sleep(9000);
             //now we can drive to park
             Trajectory traj5 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeRight(24*2)//forward 4 tiles from here should park us
+                    .strafeRight(24*2+10)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
 
             drive.followTrajectory(traj5);  //now push the item out of the way
 //
+
+            rightGrip.setPosition(.1);
+            wristGrip.setPosition(.5);
+            sleep(500);
+            wristGrip.setPosition(.36);
+            sleep(500);
 
 
 
