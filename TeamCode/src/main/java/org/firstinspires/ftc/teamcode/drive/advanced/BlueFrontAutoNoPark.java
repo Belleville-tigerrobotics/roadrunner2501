@@ -103,6 +103,7 @@ public class BlueFrontAutoNoPark extends LinearOpMode {
         }
 
         waitForStart();
+        sleep(1000); //pause to make sure we detect
 //now detect the object
         detectedZone = teamElementDetection.elementDetection(telemetry);
         telemetry.update();
@@ -208,7 +209,7 @@ public class BlueFrontAutoNoPark extends LinearOpMode {
             wristGrip.setPosition(wristfloorposition);//..64
             sleep(800);
             Trajectory traj = drive.trajectoryBuilder(startPose)
-                    .forward(27)
+                    .forward(29)
                     //                .splineTo(new Vector2d(-54,-42), Math.toRadians(0))
 
                     .build();
@@ -280,7 +281,7 @@ public class BlueFrontAutoNoPark extends LinearOpMode {
 
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .forward(3)
+                    .forward(6)
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             drive.followTrajectory(traj3);  //now push the item out of the way

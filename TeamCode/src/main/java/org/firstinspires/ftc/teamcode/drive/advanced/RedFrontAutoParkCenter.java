@@ -104,13 +104,14 @@ public class RedFrontAutoParkCenter extends LinearOpMode {
 
         waitForStart();
 //now detect the object
+        sleep(1000); // Pause to make sure we detect
         detectedZone = teamElementDetection.elementDetection(telemetry);
         telemetry.update();
 
         telemetry.addData("Current Alliance Selected : ", curAlliance.toUpperCase());
         telemetry.addData("Found position ", detectedZone);
         telemetry.update();
-        sleep(4000);
+    //    sleep(200);
 
         //setup speed limiter for roadrunner
         TrajectoryVelocityConstraint slowConstraint = new MinVelocityConstraint(Arrays.asList(
@@ -184,7 +185,7 @@ public class RedFrontAutoParkCenter extends LinearOpMode {
 
             Trajectory traj5 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(15)//forward 4 tiles from here should park us
+                    .back(10)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
@@ -228,10 +229,10 @@ public class RedFrontAutoParkCenter extends LinearOpMode {
 
 
             // now let's get in position to be able to make it under the stage
-            sleep(800);
+            sleep(200);
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                   //                  .setVelConstraint(slowConstraint)
-                    .forward(4) //TODO tune this
+                    .forward(2) //TODO tune this
                     //
                     .build();
             if (isStopRequested()) return;
@@ -279,7 +280,7 @@ public class RedFrontAutoParkCenter extends LinearOpMode {
 
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .forward(3)
+                    .forward(6)
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             drive.followTrajectory(traj3);  //now push the item out of the way
@@ -306,6 +307,11 @@ public class RedFrontAutoParkCenter extends LinearOpMode {
 
 //we could add some stuff here to place the other pixel now that we're in front of the board
             //
+
+            //need to maybe zigzag here instead of straight back to the board?
+
+
+
 
         }
 

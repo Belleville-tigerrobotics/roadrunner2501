@@ -98,6 +98,7 @@ public class RedBackAutoPark extends LinearOpMode {
         }
 
         waitForStart();
+        sleep(1000); //pause for detection
 //now detect the object
         detectedZone = teamElementDetection.elementDetection(telemetry);
         telemetry.update();
@@ -105,7 +106,7 @@ public class RedBackAutoPark extends LinearOpMode {
         telemetry.addData("Current Alliance Selected : ", curAlliance.toUpperCase());
         telemetry.addData("Found position ", detectedZone);
         telemetry.update();
-        sleep(500);
+        sleep(200);
 
         //setup speed limiter for roadrunner
         TrajectoryVelocityConstraint slowConstraint = new MinVelocityConstraint(Arrays.asList(

@@ -101,6 +101,7 @@ public class BlueFrontAutoParkCenter extends LinearOpMode {
         }
 
         waitForStart();
+        sleep(1000); //pause to make sure we detect
 //now detect the object
         detectedZone = teamElementDetection.elementDetection(telemetry);
         telemetry.update();
@@ -206,9 +207,9 @@ public class BlueFrontAutoParkCenter extends LinearOpMode {
             // do roadrunner stuff here for zone 2
             //put down the claw first
             wristGrip.setPosition(wristfloorposition);//..64
-            sleep(800);
+            sleep(200);
             Trajectory traj = drive.trajectoryBuilder(startPose)
-                    .forward(27)
+                    .forward(29)
                     //                .splineTo(new Vector2d(-54,-42), Math.toRadians(0))
 
                     .build();

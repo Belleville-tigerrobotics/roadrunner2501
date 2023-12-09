@@ -104,13 +104,14 @@ public class RedFrontAutoNoPark extends LinearOpMode {
 
         waitForStart();
 //now detect the object
+        sleep(1000); //pause to make sure we detect
         detectedZone = teamElementDetection.elementDetection(telemetry);
         telemetry.update();
 
         telemetry.addData("Current Alliance Selected : ", curAlliance.toUpperCase());
         telemetry.addData("Found position ", detectedZone);
         telemetry.update();
-        sleep(4000);
+        sleep(100);
 
         //setup speed limiter for roadrunner
         TrajectoryVelocityConstraint slowConstraint = new MinVelocityConstraint(Arrays.asList(
@@ -275,7 +276,7 @@ public class RedFrontAutoNoPark extends LinearOpMode {
             if (isStopRequested()) return;
 
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
-                    .forward(3)
+                    .forward(6)
                     .build();
             drive.followTrajectory(traj3);  //now push the item out of the way
             if (isStopRequested()) return;
