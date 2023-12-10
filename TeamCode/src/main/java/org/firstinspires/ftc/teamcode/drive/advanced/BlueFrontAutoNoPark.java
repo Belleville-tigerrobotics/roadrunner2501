@@ -147,11 +147,33 @@ public class BlueFrontAutoNoPark extends LinearOpMode {
 
             wristGrip.setPosition(wristfloorposition);      //now put the wrist down
             sleep(800);
+
+            Trajectory traj2a = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeRight(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj2a);  //back up a bit
+
+
+
             leftGrip.setPosition(0.15);
             sleep(800);
             //lift wrist
             wristGrip.setPosition(.36);//..64
-/*
+
+            Trajectory traj2b = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeLeft(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj2b);  //back up a bit
+
+            sleep(1000);
+
+            /*
             drive.turn(Math.toRadians(200));
 
             sleep(400);
@@ -288,15 +310,36 @@ public class BlueFrontAutoNoPark extends LinearOpMode {
             if (isStopRequested()) return;
 
             // once we're positioned, now let's drop the pixel--same for each location hopefully, so only need this part once
+            wristGrip.setPosition(wristfloorposition);
             sleep(200);
             //now let go of left grip
+
+            Trajectory traj3a = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeLeft(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            drive.followTrajectory(traj3a);  //now push the item out of the way
+
+
             leftGrip.setPosition(0.15);
 
 
             sleep(800);
             //lift wrist
             wristGrip.setPosition(.36);//..64
+
+            Trajectory traj3b = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeRight(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            drive.followTrajectory(traj3b);  //now push the item out of the way
+
+
+
             if (isStopRequested()) return;
+            sleep(1000);
 /*
 //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())

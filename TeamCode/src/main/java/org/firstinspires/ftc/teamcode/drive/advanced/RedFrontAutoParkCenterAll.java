@@ -147,10 +147,30 @@ public class RedFrontAutoParkCenterAll extends LinearOpMode {
             drive.followTrajectory(traj2);  //back up a bit
             wristGrip.setPosition(wristfloorposition);      //now put the wrist down
             sleep(800);
+            Trajectory traj2a = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeLeft(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj2a);  //back up a bit
+
+
+
             leftGrip.setPosition(0.15);
             sleep(800);
             //lift wrist
             wristGrip.setPosition(.36);//..64
+
+            Trajectory traj2b = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeRight(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj2b);  //back up a bit
+
+
 
             //    drive.turn(Math.toRadians(-95));
 
@@ -162,15 +182,7 @@ public class RedFrontAutoParkCenterAll extends LinearOpMode {
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
-            drive.followTrajectory(traj3);  //now push the item out of the way
-
-            // once we're positioned, now let's drop the pixel--same for each location hopefully, so only need this part once
-            //         sleep(200);
-            //now let go of left grip
-            //           leftGrip.setPosition(0.15);
-            //           sleep(800);
-            //lift wrist
-            //           wristGrip.setPosition(.36);//..64
+            drive.followTrajectory(traj3);
 
 //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
@@ -357,6 +369,13 @@ public class RedFrontAutoParkCenterAll extends LinearOpMode {
                     .build();
             drive.followTrajectory(traj3);  //now push the item out of the way
             if (isStopRequested()) return;
+            Trajectory traj3a = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeRight(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            drive.followTrajectory(traj3a);  //now push the item out of the way
+            if (isStopRequested()) return;
 
             // once we're positioned, now let's drop the pixel--same for each location hopefully, so only need this part once
             sleep(200);
@@ -368,10 +387,11 @@ public class RedFrontAutoParkCenterAll extends LinearOpMode {
             if (isStopRequested()) return;
             sleep(500);
 
+
 //now we can drive to park
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeRight((38))
+                    .strafeRight((36))
                     .build();
             drive.followTrajectory(traj4);  //now push the item out of the way
             //          drive.turn(Math.toRadians(95));

@@ -146,10 +146,31 @@ public class BlueFrontAutoParkCenterAll extends LinearOpMode {
             drive.followTrajectory(traj2);  //back up a bit
             wristGrip.setPosition(wristfloorposition);      //now put the wrist down
             sleep(800);
+
+            Trajectory traj2a = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeRight(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj2a);  //back up a bit
+
+
+
+
             leftGrip.setPosition(0.15);
             sleep(800);
             //lift wrist
             wristGrip.setPosition(.36);//..64
+
+            Trajectory traj2b = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeLeft(2)
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
+                    .build();
+            if (isStopRequested()) return;
+            drive.followTrajectory(traj2b);  //back up a bit
+
 
             drive.turn(Math.toRadians(200));
 
@@ -331,6 +352,13 @@ public class BlueFrontAutoParkCenterAll extends LinearOpMode {
             drive.followTrajectory(traj3);  //now push the item out of the way
             if (isStopRequested()) return;
 
+            Trajectory traj3a = drive.trajectoryBuilder(drive.getPoseEstimate())
+                    //                  .setVelConstraint(slowConstraint)
+                    .strafeLeft((2))//forward 4 tiles from here should park us
+                    //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))  //this would be cool!
+                    .build();
+            drive.followTrajectory(traj3a);  //now push the item out of the way
+
             // once we're positioned, now let's drop the pixel--same for each location hopefully, so only need this part once
             sleep(200);
             //now let go of left grip
@@ -345,7 +373,7 @@ public class BlueFrontAutoParkCenterAll extends LinearOpMode {
 
             Trajectory traj4 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeLeft((38))//forward 4 tiles from here should park us
+                    .strafeLeft((36))//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))  //this would be cool!
                     .build();
             drive.followTrajectory(traj4);  //now push the item out of the way
