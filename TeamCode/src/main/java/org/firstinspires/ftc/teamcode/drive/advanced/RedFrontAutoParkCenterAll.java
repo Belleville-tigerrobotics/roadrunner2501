@@ -399,7 +399,7 @@ public class RedFrontAutoParkCenterAll extends LinearOpMode {
 
             Trajectory traj5b = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeRight(24*1)//forward 4 tiles from here should park us
+                    .strafeRight(4)
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;

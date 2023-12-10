@@ -154,7 +154,7 @@ public class BlueFrontAutoParkCenterAll extends LinearOpMode {
             drive.turn(Math.toRadians(200));
 
 
-            sleep(400);
+            sleep(200);
             Trajectory traj3 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
                     .strafeLeft(40)
@@ -179,7 +179,7 @@ public class BlueFrontAutoParkCenterAll extends LinearOpMode {
                     .build();
             drive.followTrajectory(traj4);  //now push the item out of the way
 
-            drive.turn(Math.toRadians(-90));
+            drive.turn(Math.toRadians(-125));
 
             //drop the other pixel
             wristGrip.setPosition(.6);
@@ -191,16 +191,17 @@ public class BlueFrontAutoParkCenterAll extends LinearOpMode {
 
 
 
-            drive.turn(Math.toRadians(90));
+            drive.turn(Math.toRadians(125));
 
             Trajectory traj5 = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .back(8)//forward 4 tiles from here should park us
+                    .back(6)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
                     .build();
             if (isStopRequested()) return;
 
             drive.followTrajectory(traj5);  //now push the item out of the way
+            drive.turn(Math.toRadians(95));
 
 
 
@@ -371,13 +372,13 @@ public class BlueFrontAutoParkCenterAll extends LinearOpMode {
             drive.turn(Math.toRadians(-95));
 
 
-            Trajectory traj5b = drive.trajectoryBuilder(drive.getPoseEstimate())
+ //           Trajectory traj5b = drive.trajectoryBuilder(drive.getPoseEstimate())
                     //                  .setVelConstraint(slowConstraint)
-                    .strafeLeft(24*1)//forward 4 tiles from here should park us
+ //                   .strafeLeft(24*1)//forward 4 tiles from here should park us
                     //                 .splineTo(new Vector2d(-54,-42),Math.toRadians(0))
-                    .build();
+ //                   .build();
             if (isStopRequested()) return;
-            drive.followTrajectory(traj5b);
+ //           drive.followTrajectory(traj5b);
 
 //we could add some stuff here to place the other pixel now that we're in front of the board
             //
